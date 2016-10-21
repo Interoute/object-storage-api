@@ -1,0 +1,6 @@
+[default]
+host_base = s3-eu.object.vdc.interoute.com
+host_bucket = %(bucket)s.s3-eu.object.vdc.interoute.com
+access_key = $INTEROUTE_S3_KEY
+secret_key = $INTEROUTE_S3_SECRET
+use_https = True
