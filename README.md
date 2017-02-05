@@ -23,7 +23,7 @@ $ s3cmd setcors CORS.cfg s3://newbucket
 
 If you do not do this, the new bucket and its contents will not be correctly visible to the Object Storage user interface.
 
-# Object Storage documentation
+## Object Storage documentation
 
 All of the documentation can be found here: [cloudstore.interoute.com/knowledge-centre/library/object-storage](https://cloudstore.interoute.com/knowledge-centre/library/object-storage)
 
