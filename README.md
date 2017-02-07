@@ -2,7 +2,7 @@
 
 Programs and files for using the API for [Interoute Object Storage](https://cloudstore.interoute.com/object-storage).
 
-## API configuration file
+## API client tool configuration file
 
 Most S3-based client tools require a configuration file. Details differ for each tool but the essential settings are 'host_base' and 'host_bucket', which you can find in the sample configuration file [s3cfg](https://raw.githubusercontent.com/Interoute/object-storage-api/master/s3cfg), which is suitable for use with the [s3cmd](http://s3tools.org/s3cmd) client. 
 
