@@ -1,10 +1,10 @@
 import requests
 from awsauth import S3Auth
 
-ACCESS_KEY = 'ACCESS_KEY_XXXXXX'
-SECRET_KEY = 'SECRET_KEY_XXXXXX'
+INTEROUTE_S3_KEY = 'XXXXXXXXX'
+INTEROUTE_S3_SECRET = 'XXXXXXXXX'
 
-OSauth = S3Auth(ACCESS_KEY, SECRET_KEY, service_url='s3-eu.object.vdc.interoute.com')
+OSauth = S3Auth(INTEROUTE_S3_KEY, INTEROUTE_S3_SECRET, service_url='s3-eu.object.vdc.interoute.com')
 
 # Load the CORS configuration from file 'CORS.cfg' and calculate the encoded MD5 checksum
 with open('CORS.cfg') as fh:

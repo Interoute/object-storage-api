@@ -1,6 +1,9 @@
 # Source for this file: https://pypi.python.org/pypi/requests-aws/0.1.8
 # See also: https://github.com/tax/python-requests-aws
 
+# The value of 'service_base_url' has been modified to set a default for
+# Interoute Object Storage
+
 # Original License Statement:
 '''
 Copyright (c) 2012-2013 Paul Tax <paultax@gmail.com> All rights reserved.
