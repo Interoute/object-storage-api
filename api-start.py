@@ -1,5 +1,7 @@
 import requests
 from awsauth import S3Auth
+import base64
+import hashlib
 
 INTEROUTE_S3_KEY = 'XXXXXXXXX'
 INTEROUTE_S3_SECRET = 'XXXXXXXXX'
