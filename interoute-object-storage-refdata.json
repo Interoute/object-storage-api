@@ -1,0 +1,15 @@
+{
+  "EU": {
+     "regionName": "EU",
+     "regionDescription": "",
+     "apiEndpoint": "s3-eu.object.vdc.interoute.com",
+     "dataCentres": [
+       {"name": "Amsterdam", "country": "NL"},
+       {"name": "London", "country": "UK"},
+       {"name": "Slough", "country": "UK"}
+     ],
+     "storagePolicies": [
+       {}
+     ]
+  }
+}
