@@ -22,6 +22,8 @@
       {
         "storagePolicyId": "af465a16f7aac15f6283316b0113057e",
         "storagePolicyDescription": "Default policy for the EU region",
+	"storagePolicyUiName": "AMS_LON_SLO_RP_1_1_1",
+	"storagePolicyUiDescription": "Amsterdam 1 Copy; London 1 Copy; Slough 1 Copy",
         "defaultPolicyForRegion": true,
         "region": "EU",
         "replicationType": "1+1+1",
@@ -46,6 +48,8 @@
       {
         "storagePolicyId": "d06b2c336f4e77ce1e01da4819b77476",
         "storagePolicyDescription": "Policy for UK-sovereign data storage",
+	"storagePolicyUiName": "LON_SLO_RP_2_1",
+	"storagePolicyUiDescription": "London 2 Copies; Slough 1 Copy",
         "defaultPolicyForRegion": false,
         "region": "EU",
         "replicationType": "2+1",
@@ -65,6 +69,8 @@
       {
         "storagePolicyId": "433635bcc26110055a871ded8e775df9",
         "storagePolicyDescription": "",
+	"storagePolicyUiName": "AMS_LON_RP_2_1",
+	"storagePolicyUiDescription": "Amsterdam 2 Copies; London 1 Copy",
         "defaultPolicyForRegion": false,
         "region": "EU",
         "replicationType": "2+1",
@@ -84,6 +90,8 @@
       {
         "storagePolicyId": "fb329ad8180518ffc9e7280d35262535",
         "storagePolicyDescription": "",
+	"storagePolicyUiName": "LON_AMS_RP_2_1",
+	"storagePolicyUiDescription": "London 2 Copies; Amsterdam 1 Copy",  
         "defaultPolicyForRegion": false,
         "region": "EU",
         "replicationType": "2+1",
@@ -121,6 +129,8 @@
       {
         "storagePolicyId": "0a4b800afcaaf87ad2aebf8e057eb9ce",
         "storagePolicyDescription": "DE-sovereign data storage. Default policy for DE region",
+	"storagePolicyUiName": "BER_FRA_RP_2_1",
+	"storagePolicyUiDescription": "Berlin 2 Copies; Frankfurt 1 Copy",
         "defaultPolicyForRegion": true,
         "region": "DE",
         "replicationType": "2+1",
@@ -139,7 +149,9 @@
       },
       {
         "storagePolicyId": "322e6a9962547f9be483c4e0a5be5e5a",
-        "storagePolicyDescription": "DE-sovereign data storage",
+         "storagePolicyDescription": "DE-sovereign data storage",
+        "storagePolicyUiName": "FRA_BER_RP_2_1",
+	"storagePolicyUiDescription": "Frankfurt 2 Copies; Berlin 1 Copy",
         "defaultPolicyForRegion": false,
         "region": "DE",
         "replicationType": "2+1",
@@ -177,6 +189,8 @@
       {
         "storagePolicyId": "6d37797515208e3926609d8a7f590220",
         "storagePolicyDescription": "CH-sovereign data storage. Default policy for CH region",
+	"storagePolicyUiName": "ZRH_GVA_RP_2_1",
+	"storagePolicyUiDescription": "Zurich 2 Copies; Geneva 1 Copy",
         "defaultPolicyForRegion": true,
         "region": "CH",
         "replicationType": "2+1",
@@ -196,6 +210,8 @@
       {
         "storagePolicyId": "65cfca43dfbc3314ee2fa9f8b879e6b8",
         "storagePolicyDescription": "CH-sovereign data storage",
+	"storagePolicyUiName": "GVA_ZRH_RP_2_1",
+	"storagePolicyUiDescription": "Geneva 2 Copies; Zurich 1 Copy",	  
         "defaultPolicyForRegion": false,
         "region": "CH",
         "replicationType": "2+1",
