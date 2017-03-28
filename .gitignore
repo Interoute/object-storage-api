@@ -1,5 +1,5 @@
 my-api-start.py
-my-generate-xml-tables-from-json.py
+DOC*.xml
 test*.py
 *~
 \#*#
