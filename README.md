@@ -12,6 +12,14 @@ Most S3-based client tools require a configuration file. Details differ for each
 
 The 'access_key' and 'secret_key' values for your Object Storage account can be found by logging in to the user interface (see the [User Guide](https://cloudstore.interoute.com/knowledge-centre/library/object-storage-user-guide) for details).
 
+## Object Storage API authorisation code for use with Python Requests
+
+[awsauth.py](https://github.com/Interoute/object-storage-api/blob/master/awsauth.py) provides a class to generate authorisation data which can be used with the Python [Requests](http://docs.python-requests.org) module.
+
+The code uses AWS Signature Version 2 from the S3 API standard.
+
+Use of the code is explained in the [Interoute Object Storage API User Guide](https://cloudstore.interoute.com/knowledge-centre/library/object-storage-api-user-guide).
+
 ## Set up a CORS policy for buckets created via the API
 
 If you create a bucket via an API call, for example using the [s3cmd](http://s3tools.org/s3cmd) client tool:
@@ -27,7 +35,7 @@ $ s3cmd setcors CORS.cfg s3://newbucket
 
 If you do not do this, the new bucket and its contents will not be correctly visible to the Object Storage user interface.
 
-## Object Storage documentation
+## Interoute Object Storage documentation
 
 All of the documentation can be found here: [cloudstore.interoute.com/knowledge-centre/library/object-storage](https://cloudstore.interoute.com/knowledge-centre/library/object-storage)
 
