@@ -1,0 +1,233 @@
+{
+  "EU": {
+    "regionName": "EU",
+    "regionDescription": "Default region for Interoute Object Storage",
+    "defaultRegion": true,
+    "apiEndpoint": "s3-eu.object.vdc.interoute.com",
+    "dataCentres": [
+      {
+        "name": "Amsterdam",
+        "country": "NL"
+      },
+      {
+        "name": "London",
+        "country": "UK"
+      },
+      {
+        "name": "Slough",
+        "country": "UK"
+      }
+    ],
+    "storagePolicies": [
+      {
+        "storagePolicyId": "af465a16f7aac15f6283316b0113057e",
+        "storagePolicyDescription": "Default policy for the EU region",
+	"storagePolicyInternalName": "AMS_LON_SLO_RP_1_1_1",
+	"storagePolicyUiDescription": "Amsterdam 1 Copy; London 1 Copy; Slough 1 Copy",
+        "defaultPolicyForRegion": true,
+        "region": "EU",
+        "replicationType": "1+1+1",
+        "replicationDataCentres": [
+          {
+            "name": "Amsterdam",
+            "country": "NL",
+            "copies": 1
+          },
+          {
+            "name": "London",
+            "country": "UK",
+            "copies": 1
+          },
+          {
+            "name": "Slough",
+            "country": "UK",
+            "copies": 1
+          }
+        ]
+      },
+      {
+        "storagePolicyId": "d06b2c336f4e77ce1e01da4819b77476",
+        "storagePolicyDescription": "Policy for UK-sovereign data storage",
+	"storagePolicyInternalName": "LON_SLO_RP_2_1",
+	"storagePolicyUiDescription": "London 2 Copies; Slough 1 Copy",
+        "defaultPolicyForRegion": false,
+        "region": "EU",
+        "replicationType": "2+1",
+        "replicationDataCentres": [
+          {
+            "name": "London",
+            "country": "UK",
+            "copies": 2
+          },
+          {
+            "name": "Slough",
+            "country": "UK",
+            "copies": 1
+          }
+        ]
+      },
+      {
+        "storagePolicyId": "433635bcc26110055a871ded8e775df9",
+        "storagePolicyDescription": "",
+	"storagePolicyInternalName": "AMS_LON_RP_2_1",
+	"storagePolicyUiDescription": "Amsterdam 2 Copies; London 1 Copy",
+        "defaultPolicyForRegion": false,
+        "region": "EU",
+        "replicationType": "2+1",
+        "replicationDataCentres": [
+          {
+            "name": "Amsterdam",
+            "country": "NL",
+            "copies": 2
+          },
+          {
+            "name": "London",
+            "country": "UK",
+            "copies": 1
+          }
+        ]
+      },
+      {
+        "storagePolicyId": "fb329ad8180518ffc9e7280d35262535",
+        "storagePolicyDescription": "",
+	"storagePolicyInternalName": "LON_AMS_RP_2_1",
+	"storagePolicyUiDescription": "London 2 Copies; Amsterdam 1 Copy",  
+        "defaultPolicyForRegion": false,
+        "region": "EU",
+        "replicationType": "2+1",
+        "replicationDataCentres": [
+          {
+            "name": "Amsterdam",
+            "country": "NL",
+            "copies": 1
+          },
+          {
+            "name": "London",
+            "country": "UK",
+            "copies": 2
+          }
+        ]
+      }
+    ]
+  },
+  "DE": {
+    "regionName": "DE",
+    "regionDescription": "DE-sovereign object storage region",
+    "defaultRegion": false,
+    "apiEndpoint": "s3-de.object.vdc.interoute.com",
+    "dataCentres": [
+      {
+        "name": "Berlin",
+        "country": "DE"
+      },
+      {
+        "name": "Frankfurt",
+        "country": "DE"
+      }
+    ],
+    "storagePolicies": [
+      {
+        "storagePolicyId": "0a4b800afcaaf87ad2aebf8e057eb9ce",
+        "storagePolicyDescription": "DE-sovereign data storage. Default policy for DE region",
+	"storagePolicyInternalName": "BER_FRA_RP_2_1",
+	"storagePolicyUiDescription": "Berlin 2 Copies; Frankfurt 1 Copy",
+        "defaultPolicyForRegion": true,
+        "region": "DE",
+        "replicationType": "2+1",
+        "replicationDataCentres": [
+          {
+            "name": "Berlin",
+            "country": "DE",
+            "copies": 2
+          },
+          {
+            "name": "Frankfurt",
+            "country": "DE",
+            "copies": 1
+          }
+        ]
+      },
+      {
+        "storagePolicyId": "322e6a9962547f9be483c4e0a5be5e5a",
+         "storagePolicyDescription": "DE-sovereign data storage",
+        "storagePolicyInternalName": "FRA_BER_RP_2_1",
+	"storagePolicyUiDescription": "Frankfurt 2 Copies; Berlin 1 Copy",
+        "defaultPolicyForRegion": false,
+        "region": "DE",
+        "replicationType": "2+1",
+        "replicationDataCentres": [
+          {
+            "name": "Berlin",
+            "country": "DE",
+            "copies": 1
+          },
+          {
+            "name": "Frankfurt",
+            "country": "DE",
+            "copies": 2
+          }
+        ]
+      }
+    ]
+  },
+  "CH": {
+    "regionName": "CH",
+    "regionDescription": "CH-sovereign object storage region",
+    "defaultRegion": false,
+    "apiEndpoint": "s3-ch.object.vdc.interoute.com",
+    "dataCentres": [
+      {
+        "name": "Geneva",
+        "country": "CH"
+      },
+      {
+        "name": "Zurich",
+        "country": "CH"
+      }
+    ],
+    "storagePolicies": [
+      {
+        "storagePolicyId": "6d37797515208e3926609d8a7f590220",
+        "storagePolicyDescription": "CH-sovereign data storage. Default policy for CH region",
+	"storagePolicyInternalName": "ZRH_GVA_RP_2_1",
+	"storagePolicyUiDescription": "Zurich 2 Copies; Geneva 1 Copy",
+        "defaultPolicyForRegion": true,
+        "region": "CH",
+        "replicationType": "2+1",
+        "replicationDataCentres": [
+          {
+            "name": "Geneva",
+            "country": "CH",
+            "copies": 1
+          },
+          {
+            "name": "Zurich",
+            "country": "CH",
+            "copies": 2
+          }
+        ]
+      },
+      {
+        "storagePolicyId": "65cfca43dfbc3314ee2fa9f8b879e6b8",
+        "storagePolicyDescription": "CH-sovereign data storage",
+	"storagePolicyInternalName": "GVA_ZRH_RP_2_1",
+	"storagePolicyUiDescription": "Geneva 2 Copies; Zurich 1 Copy",	  
+        "defaultPolicyForRegion": false,
+        "region": "CH",
+        "replicationType": "2+1",
+        "replicationDataCentres": [
+          {
+            "name": "Geneva",
+            "country": "CH",
+            "copies": 2
+          },
+          {
+            "name": "Zurich",
+            "country": "CH",
+            "copies": 1
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,8 +1,20 @@
+# awsauth.py for Interoute Object Storage
+# See the repo: https://github.com/Interoute/object-storage-api
+#
 # Source for this file: https://pypi.python.org/pypi/requests-aws/0.1.8
 # See also: https://github.com/tax/python-requests-aws
-
+#
+# This code provides a class S3Auth to generate authorisation data which can be used with 
+# the Python Requests module  (http://docs.python-requests.org).
+#
+# The code uses AWS Signature Version 2 from the S3 API standard.
+#
+# Use of the code is explained in the Interoute Object Storage API User Guide:
+#  https://cloudstore.interoute.com/knowledge-centre/library/object-storage-api-user-guide
+#
 # The value of 'service_base_url' has been modified to set a default for
 # Interoute Object Storage
+
 
 # Original License Statement:
 '''
