@@ -1,7 +1,9 @@
 my-api-start.py
+DOC*.xml
 test*.py
-
 *~
+\#*#
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

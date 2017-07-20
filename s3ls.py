@@ -2,7 +2,7 @@
 #
 # Python script for the Interoute Object Storage API:
 #   Name: s3ls.py:
-#   Purpose: ...........................
+#   Purpose: Show bucket and object contents in 'ls' style for an Object Storage account
 #   Requires: class S3Auth in the file awsauth.py
 # See the repo: https://github.com/Interoute/object-storage-api
 #
