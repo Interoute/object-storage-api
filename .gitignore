@@ -1,5 +1,6 @@
 my-api-start.py
 DOC*.xml
+test-*
 test*.py
 *~
 \#*#
