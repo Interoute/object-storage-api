@@ -16,7 +16,8 @@
 #   https://docs.python.org/2/library/xml.etree.elementtree.html
 #   https://stackoverflow.com/questions/34009992/python-elementtree-default-namespace
 #   https://stackoverflow.com/questions/29785974/determine-s3-bucket-region
-
+# https://stackoverflow.com/questions/1915564/python-convert-a-dictionary-to-a-sorted-list-by-value-instead-of-key
+# https://duckduckgo.com/?q=python+itemgetter&t=lm&ia=qa
 
 '''
 from __future__ import print_function
@@ -42,6 +43,24 @@ import json
 import xml.dom.minidom
 import xml.etree.ElementTree as ET
 
+# Tabular print function
+# Reference: https://stackoverflow.com/questions/8356501/python-format-tabular-output
+def print_table(table):
+    col_width = [max(len(x) for x in col) for col in zip(*table)]
+    for line in table:
+        print "" + "  ".join("{:{}}".format(x, col_width[i])
+                                for i, x in enumerate(line)) + ""
+
+# Tabular print with 'state' given by shell text colour sequence (last two items of each row of list)
+# Assume first element of table_with_state is a list of column headers
+def print_table_with_state(table_with_state):
+    numcols = len(table_with_state[0]) - 2
+    table = [row[:numcols] for row in table_with_state]
+    col_width = [max(len(x) for x in col) for col in zip(*table)]
+    for line in table_with_state:
+        print line[numcols] + "" + "  ".join("{:{}}".format(x, col_width[i])
+                                for i, x in enumerate(line[:numcols])) + "" + line[numcols+1]
+
 # function to prettyprint XML
 def xmlp(xmlString):
    print xml.dom.minidom.parseString(xmlString).toprettyxml()
@@ -61,6 +80,9 @@ else:
        OSdata = json.loads(jstring)
    except:
        sys.exit("ERROR: Object Storage data file not found")
+
+# The list of all of the regions, as defined in the JSON file 
+
 regions = [s for s in OSdata.keys()]
 
 # STEP: Parse the command line arguments
@@ -70,10 +92,10 @@ parser.add_argument("-c", "--config", default=os.path.join(os.path.expanduser('~
 parser.add_argument("-r", "--region", default='', help="display for the specified Object Storage region (default is all regions)")
 parser.add_argument("-s", "--storagepolicies", action='store_true', help="display the storage policy information for each bucket")
 parser.add_argument("-p", "--permissions", action='store_true', help="display the ACL permissions for each bucket/folder/object")
-## ** ADD OPTION FOR FILTERING ONLY ACL PUBLIC PERMISSIONS
+## ** ADD OPTION FOR FILTERING ONLY 'PUBLIC' PERMISSIONS WHICH CAN BE OF SEVERAL TYPES (ACL, static website, time-limited share, ?)
 ## ** ADD OPTION FOR SETTING AN INITIAL BUCKET (OR BUCKET/FOLDER) -- DEFAULT 'NON-RECURSIVE' TO SHOW CONTENTS AT TOP LEVEL OF THE BUCKET/FOLDER
-## ** ADD OPTION  RECURSIVE (INCLUDE ALL LEVELS BELOW INITIAL BUCKET/FOLDER LEVEL) OR NON-RECURSIVE (LIST ONLY OBJECTS/FOLDERS AT THE INITIAL LEVEL)
-## ** ADD OPTION FOR FLAT DISPLAY OF FOLDER1/FOLDER2/.../OBJECT OR HIERARCHICAL-INDENTED OUTPUT
+## ** ADD OPTION RECURSIVE (INCLUDE ALL LEVELS BELOW INITIAL BUCKET/FOLDER LEVEL) OR NON-RECURSIVE (LIST ONLY OBJECTS/FOLDERS AT THE INITIAL LEVEL)
+## ** ADD OPTION FOR FLAT DISPLAY OF FOLDER1/FOLDER2/.../OBJECT OR DEFAULT HIERARCHICAL-INDENTED OUTPUT
 ## ** ADD OPTIONS FOR SHOWING VERSIONING INFORMATION??
 ## ** ADD OPTION FOR COLOURISED OUTPUT (OF PUBLIC PERMISSION STATUS)
 coloredOutput = True
@@ -141,22 +163,25 @@ for bname in bucketsDataDict.keys():
       for grant in grantslist:
          gtype = grant.find('s3:Grantee', ns).attrib['{http://www.w3.org/2001/XMLSchema-instance}type']
          if gtype == 'CanonicalUser':
-             prmslist += [{'type': 'user', 'user':grant.find('s3:Grantee', ns).find('s3:DisplayName', ns).text, 'permission':grant.find('s3:Permission', ns).text}]
+             prmslist += [{'type': 'user', 'name':grant.find('s3:Grantee', ns).find('s3:DisplayName', ns).text, 'permission':grant.find('s3:Permission', ns).text}]
              publicTest += [False]
          elif gtype == 'Group':
              groupName = grant.find('s3:Grantee', ns).find('s3:URI', ns).text.split('/')[-1]
-             prmslist += [{'type': 'group', 'group':groupName, 'permission':grant.find('s3:Permission', ns).text}]
+             prmslist += [{'type': 'group', 'name':groupName, 'permission':grant.find('s3:Permission', ns).text}]
              if groupName == "AllUsers":
                 publicTest += [True]
              else:
                 publicTest += [False]
-      bucketsDataDict[bname]['publicFlag'] = any(publicTest)
       bucketsDataDict[bname]['accessACL'] = prmslist
+      # if any of the grants permit public access then set 'publicFlag' to True
+      bucketsDataDict[bname]['publicFlag'] = any(publicTest)
+
       
 # ** TEST OUTPUT **
 # ** TO ADD: SORTING OF BUCKET OUTPUT BY: CREATE TIME, REGION, NAME (ASCENDING/DESCENDING IN EACH CASE)
-# ** TO ADD: SORTING OF FOLDER/OBJECT OUTPUT BY: CREATE TIME, NAME (ASCENDING/DESCENDING IN EACH CASE)
+# ** TO ADD: SORTING OF FOLDER/OBJECT OUTPUT BY: CREATED TIME, NAME (ASCENDING/DESCENDING IN EACH CASE)
 
+outputTable = [["CREATED_DATE", "REGION", "NAME", "PERMISSIONS", "", ""]]
 for bname in bucketsDataDict.keys():
    # check if showing content for all regions, or this bucket is in the specified region
    if not(region_selected) or (region_selected and bucketsDataDict[bname]['region'] == region_selected):
@@ -166,6 +191,9 @@ for bname in bucketsDataDict.keys():
       else:
          stateColorOn = ""
          stateColorOff = ""
-      print("%s %s  %s  %s %s %s" % (stateColorOn, bucketsDataDict[bname]['created'], bucketsDataDict[bname]['region'], bucketsDataDict[bname]['name'], bucketsDataDict[bname]['accessACL'], stateColorOff))
+      permissions = map(lambda x: "%s (%s)" % (x['name'], x['permission']), bucketsDataDict[bname]['accessACL'])
+      outputTable += [[bucketsDataDict[bname]['created'], bucketsDataDict[bname]['region'], bucketsDataDict[bname]['name'], permissions, stateColorOn, stateColorOff]]
+
+print_table_with_state(outputTable)
 
       
