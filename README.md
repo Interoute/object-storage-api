@@ -47,7 +47,9 @@ All of the documentation can be found here: [cloudstore.interoute.com/knowledge-
 
 The current version does a *limited* check of access permissions, and flags public access objects with a green colour. Currently, the only check is on ACL permissions of buckets (not objects inside buckets). This is not the only way that objects may be exposed to public access. The design intention is that a rapid scan of an object storage account is possible to check on the public access status of all buckets and objects.
 
-Examples of using the program: (1) show bucket properties only ('-b') with ACL permissions ('-p')
+### Examples of using the program 
+
+#### (1) Show bucket properties only ('-b') with ACL permissions ('-p')
 
 ```sh
 $ python s3ls.py -b -p
@@ -60,7 +62,7 @@ DATE                 REGION  NAME             PERMISSIONS
 2016-11-09T16:03:51  EU      vdcexamples      Phillip Kent (FULL_CONTROL), AllUsers (READ)
 ```
 
-(2) As example 1 with storage policies displayed ('-s') and restricting output to the region 'EU' only
+#### (2) As example 1 with storage policies displayed ('-s') and restricting output to the region 'EU' only
 
 ```sh
 $ python s3ls.py -b -p -s -r EU
@@ -70,7 +72,10 @@ DATE                 REGION  POLICY                NAME             PERMISSIONS
 2017-02-09T09:51:31  EU      AMS_LON_SLO_RP_1_1_1  testversioning   Phillip Kent (FULL_CONTROL)                 
 2016-11-09T16:03:51  EU      AMS_LON_RP_2_1        vdcexamples      Phillip Kent (FULL_CONTROL), AllUsers (READ)
 ```
-(3) Show bucket contents with storage policies and human-readable object sizes ('-H')
+
+#### (3) Show bucket contents with storage policies and human-readable object sizes ('-H')
+
+(The output shown is abbreviated)
 
 ```sh
 $ python s3ls.py -s -H
@@ -82,11 +87,9 @@ DATE                 REGION  POLICY                SIZE    NAME
 2017-04-24T10:32:34  EU      AMS_LON_RP_2_1        f         cloudstorefiles/blog/image/                                                                                     
 2017-08-15T15:09:20  EU      AMS_LON_RP_2_1        42.3K     cloudstorefiles/blog/image/CloudStore-Blog-Grendel-Standby-disaster-recovery-image-diagram1.png                 
 2017-08-15T15:09:21  EU      AMS_LON_RP_2_1        14.5K     cloudstorefiles/blog/image/CloudStore-Blog-Grendel-Standby-disaster-recovery-image-diagram2.png                 
-...
 2017-04-24T10:26:55  EU      AMS_LON_RP_2_1        f         cloudstorefiles/image/                                                                                          
 2017-01-05T17:37:45  EU      AMS_LON_RP_2_1        33.3K     cloudstorefiles/image/image-DOC001-VDC2-Events-Events-view.png                                                  
 2016-12-21T14:01:54  EU      AMS_LON_RP_2_1        70.2K     cloudstorefiles/image/image-DOC001-VDC2-MyServices-VDC-Control-Centre.png                                       
-...
 2017-02-09T09:51:31  EU      AMS_LON_SLO_RP_1_1_1          testversioning                                                                                                    
 2017-07-22T16:08:02  EU      AMS_LON_SLO_RP_1_1_1  17        testversioning/testobject                                                                                       
 2016-11-09T16:03:51  EU      AMS_LON_RP_2_1                vdcexamples                                                                                                       
@@ -96,6 +99,24 @@ DATE                 REGION  POLICY                SIZE    NAME
 2017-06-22T12:24:56  EU      AMS_LON_RP_2_1        1.7G      vdcexamples/linuxmint-18.1-mate-64bit.iso
 ```
 
+#### (4) Use the 'namesfilter' ('-n') option to filter the output
 
+Filter the output by substring matching of object and folder names (this is *not* applied to bucket names), for example show only objects with names ending with the string '.jpg'
+
+```sh
+$ python s3ls.py -H -n .jpg
+OUTPUT NAMES FILTER: '.jpg'
+DATE                 REGION  SIZE    NAME                                                                                                              
+2017-07-22T16:40:04  CH              my-ch-bucket-2                                                                                                    
+2017-07-22T16:41:33  DE              my-de-bucket-2                                                                                                    
+2016-11-09T16:03:28  EU              cloudstorefiles                                                                                                   
+2017-08-16T08:45:52  EU      45.4K     cloudstorefiles/blog/image/CloudStore-Blog-Morrish-Data-location-location-image-Pins-marking-location-on-map.jpg
+2017-04-24T16:38:12  EU      361.4K    cloudstorefiles/blog/image/CloudStore-blog-20141118-BigRedButton1.jpg                                           
+2017-04-24T16:38:12  EU      327.5K    cloudstorefiles/blog/image/CloudStore-blog-20141118-BigRedButton2.jpg                                           
+2017-08-04T16:25:45  EU      62.9K     cloudstorefiles/image/image-DOC085-RedHatCloudAccess-Register-Image-form.jpg                                    
+2017-07-22T16:33:26  EU              new-bucket-eu                                                                                                     
+2017-02-09T09:51:31  EU              testversioning                                                                                                    
+2016-11-09T16:03:51  EU              vdcexamples
+```
 
 
