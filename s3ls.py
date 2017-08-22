@@ -83,13 +83,13 @@ parser.add_argument("-c", "--config", default=os.path.join(os.path.expanduser('~
                     help="path/name of the config file to be used for the S3 URL and S3 keys (default is ~/.s3cfg)")
 parser.add_argument("-r", "--region", default='', help="display for the specified Object Storage region (default is all regions)")
 parser.add_argument("-b", "--bucketsonly", action='store_true', help="display only bucket information (without content)")
+parser.add_argument("-n", "--namesfilter", default='', help="filter output by simple substring matching of the folder/object name string against this string (default is no filter)")
 parser.add_argument("-s", "--storagepolicy", action='store_true', help="display the storage policy information")
 parser.add_argument("-p", "--permissions", action='store_true', help="display the ACL permissions for each bucket")
 parser.add_argument("-o", "--colored", action='store_true', help="use colorised output (green indicates ACL public permission setting for the bucket - object permission is NOT checked)")
 parser.add_argument("-H", "--humanreadable", action='store_true', help="show human-readable size values for objects (powers of 1024)")
-## ** ADD OPTION FOR FILTERING ONLY 'PUBLIC' PERMISSIONS WHICH CAN BE OF SEVERAL TYPES (ACL, static website, time-limited share, ?)
-## ** ADD OPTION FOR SETTING AN INITIAL BUCKET (OR BUCKET/FOLDER) -- DEFAULT 'NON-RECURSIVE' TO SHOW CONTENTS AT TOP LEVEL OF THE BUCKET/FOLDER
-## ** ADD OPTION RECURSIVE (INCLUDE ALL LEVELS BELOW INITIAL BUCKET/FOLDER LEVEL) OR NON-RECURSIVE (LIST ONLY OBJECTS/FOLDERS AT THE INITIAL LEVEL)
+## ** ADD OPTION FOR FILTERING ONLY 'PUBLIC' PERMISSIONS WHICH CAN BE OF SEVERAL TYPES (ACL, static website, time-limited share, and?)
+## ** ADD OPTION RECURSIVE (INCLUDE ALL LEVELS BELOW AN INITIAL BUCKET/FOLDER LEVEL) OR NON-RECURSIVE (LIST ONLY OBJECTS/FOLDERS AT AN INITIAL LEVEL)
 ## ** ADD OPTION FOR 'FLAT' DISPLAY OF FULL PATH "BUCKETNAME/FOLDER1/FOLDER2/.../OBJECT" (DEFAULT) OR HIERARCHICAL-INDENTED OUTPUT
 ## ** ADD OPTIONS FOR SHOWING VERSIONING INFORMATION??
 config_file = parser.parse_args().config
@@ -98,7 +98,8 @@ bucketsOnlyDisplay = parser.parse_args().bucketsonly
 coloredOutput = parser.parse_args().colored
 storagePolicyDisplay = parser.parse_args().storagepolicy
 permissionsDisplay = parser.parse_args().permissions
-humanreadableSizeDisplay= parser.parse_args().humanreadable
+humanreadableSizeDisplay = parser.parse_args().humanreadable
+namesFilter = parser.parse_args().namesfilter
 
 if region_selected:
    if region_selected not in regions:
@@ -217,23 +218,24 @@ for bname in bucketsDataDict.keys():
          for c in bucketContents.findall("s3:Contents", ns):
             # Key = the folder/object path and name
             cKey = c.find("s3:Key", ns).text
-            thisIsFolder =  (cKey[-1] == '/')
-            outputRow = [c.find("s3:LastModified", ns).text.split('.')[0], bucketsDataDict[bname]['region']] 
-            if storagePolicyDisplay:
-               outputRow += [bucketsDataDict[bname]['storagepolicyname']]
-            objectSize = int(c.find("s3:Size", ns).text)
-            if thisIsFolder:
-               # for a folder, print 'f' for SIZE
-               outputRow += ["f"]
-            elif humanreadableSizeDisplay:
-               outputRow += [pretty_size(objectSize)]
-            else: 
-               outputRow += [str(objectSize)]
-            outputRow += [ "  "+bucketsDataDict[bname]['name'] + "/" + cKey] 
-            if permissionsDisplay:
-               outputRow += [""]
-            outputRow += [stateColorOn, stateColorOff]
-            outputTable += [outputRow]
+            if not(namesFilter) or cKey.find(namesFilter) != -1:
+                thisIsFolder =  (cKey[-1] == '/')
+                outputRow = [c.find("s3:LastModified", ns).text.split('.')[0], bucketsDataDict[bname]['region']] 
+                if storagePolicyDisplay:
+                   outputRow += [bucketsDataDict[bname]['storagepolicyname']]
+                objectSize = int(c.find("s3:Size", ns).text)
+                if thisIsFolder:
+                   # for a folder, print 'f' for SIZE
+                   outputRow += ["f"]
+                elif humanreadableSizeDisplay:
+                   outputRow += [pretty_size(objectSize)]
+                else: 
+                   outputRow += [str(objectSize)]
+                outputRow += [ "  "+bucketsDataDict[bname]['name'] + "/" + cKey] 
+                if permissionsDisplay:
+                   outputRow += [""]
+                outputRow += [stateColorOn, stateColorOff]
+                outputTable += [outputRow]
       
 
 # ** TO ADD: OPTIONAL SORTING OF BUCKET OUTPUT BY: DATE, REGION, NAME (ASCENDING/DESCENDING IN EACH CASE)
@@ -250,6 +252,9 @@ else:
    else:
       outputTable.sort(key=lambda x: (x[1], x[3].strip()))
 
+# Print the results
+if namesFilter:
+   print("OUTPUT NAMES FILTER: '%s'" % namesFilter)
 print_table_with_state([headerRow] + outputTable)
 
       
